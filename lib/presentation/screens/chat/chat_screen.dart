@@ -35,7 +35,7 @@ class _ChatView extends StatelessWidget {
 
     return SafeArea(
         child: Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 15),
       // define un area que no desborda con el norch del telefono
       child: Column(children: [
         Expanded(
@@ -49,7 +49,9 @@ class _ChatView extends StatelessWidget {
             // muestra las burbujas con el texto
             final message = chatProvider.messageList[index];
             return (message.fromWho == FromWho.hers)
-                ? const HerMessageBubble()
+                ? HerMessageBubble(
+                    message: message,
+                  )
                 : MyMessageBubble(message: message);
           },
         )),
