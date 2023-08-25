@@ -12,11 +12,26 @@ class ChatProvider extends ChangeNotifier {
   ];
 
   Future<void> sendMessage(String text) async {
+// valida no enviar mensajes vacios
+    if (text.isEmpty) return;
+
 // agrega nuevos mensajes a mostrar
     final newMessage = Message(text: text, fromWho: FromWho.me);
     messageList.add(newMessage);
 
     // actualiza el estado de la aplicacion para volver a renderizar la aplicacion
     notifyListeners();
+
+    // ejecuta el scroll automatico
+    moveScrollToBottom();
+  }
+
+  Future<void> moveScrollToBottom() async {
+    // retrasar 100 milisegundos
+    await Future.delayed(const Duration(milliseconds: 100));
+    chatScrollController.animateTo(
+        chatScrollController.position.maxScrollExtent,
+        duration: const Duration(milliseconds: 300),
+        curve: Curves.easeOut);
   }
 }

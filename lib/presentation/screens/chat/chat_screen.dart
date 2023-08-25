@@ -34,12 +34,16 @@ class _ChatView extends StatelessWidget {
     final chatProvider = context.watch<ChatProvider>();
 
     return SafeArea(
+        child: Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10),
       // define un area que no desborda con el norch del telefono
       child: Column(children: [
         Expanded(
             // toma todo el espacio proporcionado por el widget padre
             // se utiiliza ListView con el constructor builder para que crearlo en tienpo de ejecucion
             child: ListView.builder(
+          controller:
+              chatProvider.chatScrollController, // enlace con chat provider
           itemCount: chatProvider.messageList.length,
           itemBuilder: (context, index) {
             // muestra las burbujas con el texto
@@ -52,6 +56,6 @@ class _ChatView extends StatelessWidget {
         // caja de texto
         MessageFieldBox(onValue: (value) => chatProvider.sendMessage(value))
       ]),
-    );
+    ));
   }
 }
